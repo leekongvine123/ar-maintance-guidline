@@ -35,22 +35,22 @@ jobs:
 
       - name: Run Spring Boot App
         run: |
-          java -jar target/ar-guideline-0.0.1-SNAPSHOT.jar &  # Start app in the background
+          java -jar target/ar-guideline-0.0.1-SNAPSHOT.jar &  # Start Spring Boot app
           sleep 10  # Allow time for the app to start
-
-      - name: Check Ngrok version
-        run: ngrok version  # Verify Ngrok is correctly installed
 
       - name: Expose Port with Ngrok
         run: |
-          ngrok http 8086 > /dev/null &  # Start Ngrok to expose the app
-          sleep 20  # Wait longer for Ngrok to start and expose the URL
-          
-          # Debug: Check if Ngrok is running and display the raw API response
-          curl -s localhost:4040/api/tunnels
-          
+          # Start Ngrok to expose the app
+          ngrok http 8086 > /dev/null &
+
+          # Wait for Ngrok to start and the API to become available
+          until curl -s localhost:4040/api/tunnels; do
+            echo "Waiting for Ngrok to start..."
+            sleep 2
+          done
+
           # Fetch the Ngrok public URL from the API response
           NGROK_URL=$(curl -s localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-          
+
           # Display the URL
           echo "Public URL: $NGROK_URL"
