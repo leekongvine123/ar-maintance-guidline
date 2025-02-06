@@ -42,7 +42,7 @@ jobs:
 
       - name: Deploy to local environment
         env:
-          NGROK_URL: ${{ secrets.NGROK_URL }}
+          NGROK_URL: ${{ secrets.NGROK_PUBLIC_URL }}
         run: |
           # Pull and run the latest image
           docker pull ghcr.io/${{ github.repository }}:latest
