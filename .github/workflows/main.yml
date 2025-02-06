@@ -38,4 +38,3 @@ jobs:
         echo "NGROK_PUBLIC_URL=$NGROK_URL" >> $GITHUB_ENV
 
     - name: Output Ngrok Public URL
-      run: echo "Your Spring Boot app is accessible at: ${{ env.NGROK_PUBLIC_URL }}"
