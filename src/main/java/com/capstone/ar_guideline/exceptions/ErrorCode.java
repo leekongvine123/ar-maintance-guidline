@@ -30,7 +30,7 @@ public enum ErrorCode {
   COURSE_CREATE_FAILED(1021, "Course create failed", HttpStatus.BAD_REQUEST),
   COURSE_UPDATE_FAILED(1022, "Course update failed", HttpStatus.BAD_REQUEST),
   COURSE_DELETE_FAILED(1023, "Course delete failed", HttpStatus.BAD_REQUEST),
-  COURSE_NOT_EXISTED(1024, "Course not existed", HttpStatus.NOT_FOUND),
+  COURSE_NOT_EXISTED(1024, "Course not existeds", HttpStatus.NOT_FOUND),
   INSTRUCTION_CREATE_FAILED(1029, "Instruction create fail", HttpStatus.BAD_REQUEST),
   INSTRUCTION_UPDATE_FAILED(1030, "Instruction update fail", HttpStatus.BAD_REQUEST),
   INSTRUCTION_DELETE_FAILED(1031, "Instruction delete fail", HttpStatus.BAD_REQUEST),
