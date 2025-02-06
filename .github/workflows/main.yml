@@ -42,10 +42,21 @@ jobs:
 
       - name: Deploy to local environment
         env:
-          NGROK_URL: ${{ secrets.NGROK_PUBLIC_URL }}
+          NGROK_URL: ${{ secrets.NGROK_URL }}
         run: |
+          # Check if container exists and remove it
+          if docker ps -a | grep -q springboot-app; then
+            docker stop springboot-app
+            docker rm springboot-app
+          fi
+          
           # Pull and run the latest image
           docker pull ghcr.io/${{ github.repository }}:latest
-          docker stop springboot-app || true
-          docker rm springboot-app || true
-          docker run -d --name springboot-app -p 8086:8086 ghcr.io/${{ github.repository }}:latest
+          docker run -d \
+            --name springboot-app \
+            -p 8086:8086 \
+            -e NGROK_URL=${{ secrets.NGROK_URL }} \
+            ghcr.io/${{ github.repository }}:latest
+          
+          # Verify container is running
+          docker ps | grep springboot-app
